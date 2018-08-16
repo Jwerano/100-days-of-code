@@ -1,0 +1,44 @@
+#!/bin/python3
+
+from random import randint
+
+player = input('rock (r), paper (p) or scissors (s)?')
+
+
+chosen = randint(1,3)
+
+if chosen == 1:
+  computer = 'rock'
+  
+elif chosen == 2:
+  computer = 'paper'
+  
+elif chosen == 3:
+  computer = 'scissors'
+
+
+result = player +' vs '+computer
+
+##player = rock, computer = scissors
+print('player = {}, computer = {}'.format(player,computer))
+
+if result == 'scissors vs scissors':
+  print('tie')
+elif result == 'scissors vs rock':
+  print('computer wins')
+elif result == 'scissors vs paper':
+  print('player wins')
+  
+elif result == 'paper vs paper':
+  print('tie')
+elif result == 'paper vs rock':
+  print('player wins')
+elif result == 'paper vs scissors':
+  print('computer wins')
+  
+elif result == 'rock vs rock':
+  print('tie')
+elif result == 'rock vs paper':
+  print('computer wins ')
+elif result == 'rock vs scissors':
+  print('player wins')
