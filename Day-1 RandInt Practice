@@ -1,0 +1,13 @@
+from random import randint
+
+a,b,c,d = randint(1,100000), randint(1,5000), randint(1,100000), randint(1,5000)
+
+e = int(a/b)
+f = int(c/d)
+
+if e > f:
+  print(True)
+else:
+  print(False)
+
+print('a is {}\n, b is {}\n, c is {}\n, d is {}\n, e is {}\n f is {}'.format(a,b,c,d,e,f))
