@@ -1,0 +1,16 @@
+import random
+import time
+
+player = input("Rock, Paper, Or Scissors?")
+print("PC is thinking")
+time.sleep(4)
+pc_choice = random.choice(["Rock","Paper","Scissors"])
+
+print("pc chooses {}".format(pc_choice))
+time.sleep(2)
+if player == "Rock" and pc_choice == "Rock":
+    print("Draw!")
+elif player == "Rock" and pc_choice == "Paper":
+    print("PC Wins!")
+elif player == "Rock" and pc_choice == "Scissors":
+    print("You Win!")
