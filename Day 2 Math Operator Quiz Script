@@ -1,11 +1,44 @@
 import random
 from random import randint
 
-chance = randint(1,10)
 
-if chance >=5:
- math_operator = random.choice(['+','-',"*","/","//","%","divmod","**"])
- print("Create a math expression that uses the {} operator.".format(math_operator))
-else:
- math_operator_names = random.choice(['addition',"subtraction","multiplication","division","floor division","modulo","exponentiation"])
- print("Create a math expression that uses the {} operator.".format(math_operator_names))
+for x in range(6):
+
+    chance = randint(1,60)
+
+    if chance <= 5:
+     math_operator = random.choice(['+','-',"*","/","//","%","divmod","**"])
+     (input("Assign a  math expression to a name that uses the {} operator.".format(math_operator)))
+    elif chance <= 10:
+     math_operator_names = random.choice(['addition',"subtraction","multiplication","division","floor division","modulo","exponentiation"])
+     input("Assign a  math expression to a name that uses the {} operator.".format(math_operator_names))
+    elif chance <= 15:
+        for_loop_problems = random.choice(['write a for loop that creates an empty list and populates it with random integers','write a for loop that gets the sum of all numbers in a range and prints it'])
+        input(" {}.".format(for_loop_problems))
+    elif chance <= 20:
+        lambda_expression_problems = random.choice(["Define a lambda function that has two arguments and multiplies them together and perhaps does some other things"])
+        input(" {}.".format(lambda_expression_problems))
+    elif chance <= 25:
+        list_comprehension_problems = random.choice(["Use list comprehensions to create a list from a randomized range with parameters of your choosing then compare the lists to each other and use conditionals and Booleans and declare which list is larger"])
+        input(" {}.".format(list_comprehension_problems))
+    elif chance <= 30:
+        while_loop_problems = random.choice(["Assign an integer to two variables then use a while statement and comparison operators to set conditions for instructions in a suite.  Include else"])
+        input(" {}.".format(while_loop_problems))
+    elif chance <= 35:
+        enumerate_problems = random.choice(["Use the enumerate function in a for loop to print out the index position and values side by side"])
+        input(" {}.".format(enumerate_problems))
+    elif chance <= 40:
+        zip_problems = random.choice(["Assign two lists to names then use the zip function to create a new merged list where the values from respective index positions are joined together in tuples"])
+        input(" {}.".format(zip_problems))
+    elif chance <= 45:
+        density_problems = random.choice(["Assign values to variables that represent and object quantity and values that represent  spatial area then relate quantities to the area in some density proportion such as population density."])
+        input(" {}.".format(density_problems))
+    elif chance <= 50:
+        string_method_problems = random.choice(["Manually create a string with many words then use several string methods on it including strip","Create a random string using random.choice or another method then use the strip method"])
+        input(" {}.".format(string_method_problems))
+    elif chance <= 55:
+        sequence_method_problems = random.choice(["Create a list using a for loop or a list comprehension and the range method then use sequence methods","Manually create a list with strings as the elements then use sequence methods"])
+        input(" {}.".format(sequence_method_problems))
+    elif chance <= 60:
+        function_problems = input("write a function which is just a set of expressions attached to a name with arguments")
+        input(" {}.".format(function_problems))
