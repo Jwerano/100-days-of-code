@@ -1,0 +1,12 @@
+# requests for fetching html of website
+import requests
+
+# Make the GET request to a url
+r = requests.get('https://www.boxofficemojo.com/yearly/chart/?view2=worldwide&yr=2018&p=.htm')
+# Extract the content
+c = r.content
+# Create a soup object
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(c, "lxml")
+main_content = soup.find('td', attrs = {'valign': 'top'}).text
+print(main_content)
