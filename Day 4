@@ -1,0 +1,248 @@
+## fought with this for 2 days finally completed have much to learn about regex.
+
+from bs4 import BeautifulSoup
+import requests
+import re
+from random import randint
+
+## I used print(r) and got response 200 and was lost.
+#Then i did r.text and it worked.  That taught me what r.text did clearly because i got different responses.
+#Those are the boundary cases that teach you naturally.  How do i identify these boundary cases for all libraries?
+# typing in commands from the documentation and mapping out all the possible commands might workself.
+#but that only works if the commands operate on the same domains.  Sometimes they dontself.
+#The context or domain is, after doing a request.get with a webpage as an arguments
+#The cases that I can explore and differentiate now is print(r), print(r.text) and print(r.content)\
+#I learn by doing all these actions and looking closely at the outputs to see the differences
+#Then trying to construct the algebra that created the outputs on my own or with the help of documentation.
+r = requests.get('https://www.boxofficemojo.com/yearly/chart/?view2=worldwide&yr=2018&p=.htm')
+
+#print(r.content)
+#print(r.text)
+
+# with request.get.content and .text there is so much noise you have to reduce noise with beautiful soupself.
+
+soup = BeautifulSoup(r.content,'lxml').text
+#print(soup)
+
+#what can i do with beautiful soup that I cant do with request library or urllib2?
+#NOthing I think. Why is Soup easier? It pulls the lines with the right tags and attribute tags.
+#What can I do with regex that I cant do with beautiful soup?
+# soup.find_all(a) is BeautifulSoup  a.findall(a) is regex and its the one that saves pattern matching data to a listself.
+#why did i need beautiful soup?  It made it easier to visually isolate the desired content, but Its not needed.
+#I will test to see if my regex still makes the right lists when I dont bother with soup objects
+
+#getting rid of soups html with .text reduces elements to perform regex matches on. So it makes getting data harder at times.
+# need to study how to make python re library work with linebreaks and spaces
+
+#I need to export the sites data to a text file to see if regex is giving me different results if its acting on r.content or r.text or soup.text
+#because I dont understand why '\n' is showing up.  SO i need to figure out how to export to a text file and to make a module where my regex commands use a text file as a source.
+
+# so maybe I need skill in using regex to get the data i need in both r.text format and when copying and pasting to text from a soup outputself.
+#But i should be able to work with the soup too.
+
+# create regex code to grab the code surrounding the movie titles
+regextitlesbig = re.compile(r'<td>.+<b>.+(?=</b)', flags = re.M)
+regextitlessmall = re.compile(r'<td>.+<b>', flags = re.M)
+
+#print(movie_data)
+souplist = []
+# create a text file where movie names will be stored
+##########################################################################################################################
+m = open("movietitles.txt","w+")
+
+#create variables that will store the regex results
+movietitlesbig = regextitlesbig.findall(r.text)
+movietitlessmall = regextitlessmall.findall(r.text)
+
+movietitle = []
+
+
+#subtract big string from little strings and write result to a new list
+for x in range(len(movietitlesbig)):
+    string1 = movietitlesbig[x-1]
+    string2 = movietitlessmall[x-1]
+    a = len(string1)
+    b = len(string2)
+    result = string1[b:a]
+    movietitle.append(result)
+
+# write the list values to a file
+for x in movietitle:
+    m.write("%s\n" % x)
+################################################################################################################
+s = open("studioname.txt","w+")
+
+regexstudionamesbig = re.compile(r'<td>.+<b>.+\n.+(?=</font)', flags = re.M)
+regexstudionamessmall = re.compile(r'<td>.+<b>.+\n.+2\">', flags = re.M)
+
+studionamesbig = regexstudionamesbig.findall(r.text)
+studionamessmall = regexstudionamessmall.findall(r.text)
+
+# print(studionamesbig)
+# print(studionamessmall)
+
+# for x,y in enumerate(studionamesbig):
+#     print(x,y)
+# for x,y in enumerate(studionamessmall):
+#     print(x,y)
+
+studionames = []
+
+for x in range(len(studionamesbig)):
+    s_string1 = studionamesbig[x-1]
+    s_string2 = studionamessmall[x-1]
+    s1 = len(s_string1)
+    s2 = len(s_string2)
+    s_result = s_string1[s2:s1]
+    studionames.append(s_result)
+
+
+for x in studionames:
+    s.write("%s\n" % x)
+
+###################################################################################################################
+w = open("worldwidegross.txt","w")
+worldwidegrossbig = re.compile(r'<td>.+<b>.+\n.+\n.+(?=</b)', flags = re.M)
+worldwidegrossmall = re.compile(r'<td>.+<b>.+\n.+\n.+2\"><b>', flags = re.M)
+
+worldwidegrossbig = worldwidegrossbig.findall(r.text)
+worldwidegrossmall = worldwidegrossmall.findall(r.text)
+
+# print(studionamesbig)
+# print(studionamessmall)
+
+# for x,y in enumerate(studionamesbig):
+#     print(x,y)
+# for x,y in enumerate(studionamessmall):
+#     print(x,y)
+
+worldwidegross = []
+
+for x in range(len(worldwidegrossbig)):
+    w_string1 = worldwidegrossbig[x-1]
+    w_string2 = worldwidegrossmall[x-1]
+    w1 = len(w_string1)
+    w2 = len(w_string2)
+    w_result = w_string1[w2:w1]
+    worldwidegross.append(w_result)
+
+print(w1)
+print(w2)
+print(w_string1[0])
+
+print(w_string2[0])
+print(w_string1)
+#print(studionames)
+
+
+for x in worldwidegross:
+    print(x)
+
+for x in worldwidegross:
+    w.write("%s\n" % x)
+
+
+
+
+#############################################################################################################################
+d = open("domesticgross.txt","w+")
+
+regexstudionamesbig = re.compile(r'<td>.+<b>.+\n.+\n.+\n.+(?=</font)', flags = re.M)
+regexstudionamessmall = re.compile(r'<td>.+<b>.+\n.+\n.+\n.+2\">', flags = re.M)
+
+studionamesbig = regexstudionamesbig.findall(r.text)
+studionamessmall = regexstudionamessmall.findall(r.text)
+
+# print(studionamesbig)
+# print(studionamessmall)
+
+# for x,y in enumerate(studionamesbig):
+#     print(x,y)
+# for x,y in enumerate(studionamessmall):
+#     print(x,y)
+
+studionames = []
+
+for x in range(len(studionamesbig)):
+    s_string1 = studionamesbig[x-1]
+    s_string2 = studionamessmall[x-1]
+    s1 = len(s_string1)
+    s2 = len(s_string2)
+    s_result = s_string1[s2:s1]
+    studionames.append(s_result)
+
+# print(s1)
+# print(s2)
+# print(s_string1[0])
+# print(s_string2[0])
+# print(studionames)
+
+
+for x in studionames:
+    d.write("%s\n" % x)
+
+
+##########################################################################################################################
+dp = open("domesticgrosspercent.txt","w+")
+regexstudionamesbig = re.compile(r'<td>.+<b>.+\n.+\n.+\n.+\n.+(?=</font)', flags = re.M)
+regexstudionamessmall = re.compile(r'<td>.+<b>.+\n.+\n.+\n.+\n.+2\">', flags = re.M)
+
+studionamesbig = regexstudionamesbig.findall(r.text)
+studionamessmall = regexstudionamessmall.findall(r.text)
+#
+# print(studionamesbig)
+# print(studionamessmall)
+
+# for x,y in enumerate(studionamesbig):
+#     print(x,y)
+# for x,y in enumerate(studionamessmall):
+#     print(x,y)
+
+studionames = []
+
+for x in range(len(studionamesbig)):
+    s_string1 = studionamesbig[x-1]
+    s_string2 = studionamessmall[x-1]
+    s1 = len(s_string1)
+    s2 = len(s_string2)
+    s_result = s_string1[s2:s1]
+    studionames.append(s_result)
+
+# print(s1)
+# print(s2)
+# print(s_string1[0])
+# print(s_string2[0])
+# print(studionames)
+
+
+for x in studionames:
+    dp.write("%s\n" % x)
+
+
+#for x in movie_data:
+#    souplist.append(x)
+
+#as a programmer you are fighting to rewire your brain as the creator of the language intended it to be understood.  If you dont understand yet, keep fighting.
+#what if the creator didnt intend us to understand?  Even if it didnt.  There is still an order and we can understand it.
+#if i need more specific information I can match the href = movies
+#for x in range(randint(34,203)):
+#f.write(r.content)
+#for x in range(23):
+
+
+# for x,y in enumerate(movietitlesbig):
+#     print(x,y)
+# for x,y in enumerate(movietitlessmall):
+#     print(x,y)
+#
+# print(len(movietitlesbig[0]))
+# print(len(movietitlessmall[0]))
+#
+#
+#
+#
+# print(movietitle)
+
+#g.write(movietitle)
+#for item in thelist:
+#  thefile.write("%s\n" % item)
